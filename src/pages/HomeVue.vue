@@ -49,6 +49,10 @@ data(){
 },
 mounted() {
     this.getVagas();
+    this.emitter.on('pesquisa', (vagas) => {
+      this.vagas = vagas;
+      console.log(this.vagas)
+    });
   },
   methods: {
     getVagas() {

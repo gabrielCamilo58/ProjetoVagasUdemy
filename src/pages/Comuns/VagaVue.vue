@@ -34,7 +34,6 @@ export default {
   props:['vaga'],
   data() {
     return {
-      vagas: [],
       favoritar: '',
     };
   },
