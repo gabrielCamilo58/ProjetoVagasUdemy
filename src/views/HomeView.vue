@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home" id="app">
+    <topo-component @navegar="componet = $event"></topo-component>
+   <alerta-comuns v-if="alerta" :titulo="titulo"></alerta-comuns>
+    <conteudo-vue :component="componet"></conteudo-vue>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import TopoComponent from '@/components/layouts/TopoComponent';
+import ConteudoVue from '@/components/layouts/Conteudo.vue';
+import AlertaComuns from '@/pages/Comuns/AlertaComuns'
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    TopoComponent,
+    ConteudoVue,
+    AlertaComuns
+  },
+  data() {
+    return{
+      componet: 'home-vue',
+      alerta: false,
+      titulo: '',
+    }
+  },
+  mounted() {
+    this.emitter.on('alerta', (vaga) => {
+        this.alerta = true
+        this.titulo = vaga.titulo
+        setTimeout(() => {
+            this.alerta = false
+        },4000);
+    })
   }
 }
 </script>
